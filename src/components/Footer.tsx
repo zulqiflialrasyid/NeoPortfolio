@@ -1,72 +1,118 @@
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { ArrowUpRight } from 'lucide-react';
+import { Instagram, Linkedin, Youtube } from 'lucide-react';
+import { useTranslation } from '../context/LanguageContext';
 
-export function Footer() {
+export default function Footer() {
   const { t } = useTranslation();
 
   const navLinks = [
-    { label: t('nav.home'), href: '/home' },
-    { label: t('nav.works'), href: '/works' },
-    { label: t('nav.about'), href: '/about' },
-    { label: t('nav.contact'), href: '/contact' },
+    { label: t.nav.home, path: '/' },
+    { label: t.nav.projects, path: '/projects' },
+    { label: t.nav.services, path: '/services' },
+    { label: t.nav.blog, path: '/blog' },
+    { label: t.nav.about, path: '/about' },
+    { label: t.nav.contact, path: '/contact' },
   ];
 
   const socialLinks = [
-    { label: 'LinkedIn', href: '#' },
-    { label: 'Dribbble', href: '#' },
-    { label: 'Behance', href: '#' },
+    { label: 'Instagram', icon: Instagram, href: 'https://instagram.com/ezulisme' },
+    { label: 'TikTok', icon: () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+      </svg>
+    ), href: 'https://tiktok.com/@ezulisme' },
+    { label: 'YouTube', icon: Youtube, href: 'https://youtube.com/@ezulisme' },
+    { label: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/zulqifli-al-rasyid' },
   ];
 
   return (
-    <footer className="border-t border-border/20">
-      <div className="container-brutal py-8 lg:py-12">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-          {/* Nav Links */}
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="text-caption uppercase tracking-[0.1em] text-foreground hover:text-clay transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            ))}
+    <footer className="bg-[var(--color-hero-surface)] border-t border-[var(--color-border)]" style={{ padding: '80px var(--page-gutter) 40px' }}>
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          <div>
+            <Link to="/" className="font-display text-xl font-bold tracking-[0.12em] text-[var(--color-text-primary)]">
+              ZUL
+            </Link>
+            <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{t.footer.tagline}</p>
+            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+              {t.footer.location}
+            </p>
           </div>
 
-          {/* Logo */}
-          <Link
-            to="/home"
-            className="font-heading font-bold text-xl tracking-[-0.02em] uppercase text-foreground hover:text-clay transition-colors duration-200 order-first lg:order-none"
-          >
-            FOLIO.AR
-          </Link>
+          <div>
+            <h4 className="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--color-accent)] mb-4">
+              {t.footer.navigation}
+            </h4>
+            <ul className="space-y-2">
+              {navLinks.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Social Links */}
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {socialLinks.map((link) => (
+          <div>
+            <h4 className="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--color-accent)] mb-4">
+              {t.footer.social}
+            </h4>
+            <ul className="space-y-2">
+              {socialLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors inline-flex items-center gap-2"
+                  >
+                    <link.icon size={14} />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--color-accent)] mb-4">
+              {t.footer.contact}
+            </h4>
+            <div className="space-y-2">
               <a
-                key={link.label}
-                href={link.href}
-                className="group flex items-center gap-1 text-caption uppercase tracking-[0.1em] text-foreground hover:text-clay transition-colors duration-200"
+                href="mailto:hello@zuldesign.id"
+                className="block text-sm text-[var(--color-accent)] hover:underline"
+              >
+                hello@zuldesign.id
+              </a>
+              <a
+                href="https://wa.me/6283141191697"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="block text-sm text-[var(--color-accent)] hover:underline"
               >
-                {link.label}
-                <ArrowUpRight
-                  size={12}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                />
+                +62 831-4119-1697
               </a>
-            ))}
+              <Link
+                to="/portfolio"
+                className="block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors mt-3"
+              >
+                {t.footer.portfolio}
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 lg:mt-12 pt-6 border-t border-border/10">
-          <p className="text-caption text-foreground/40">
-            {t('footer.copyright')}
+        <div className="mt-12 pt-6 border-t border-[var(--color-border)] flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+            {t.footer.copyright}
+          </p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-muted)]">
+            {t.footer.madeIn}
           </p>
         </div>
       </div>

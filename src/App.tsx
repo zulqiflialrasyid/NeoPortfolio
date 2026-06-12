@@ -1,63 +1,48 @@
-import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
-import { CustomCursor } from '@/components/CustomCursor';
-import { Welcome } from '@/pages/Welcome';
-import { Home } from '@/pages/Home';
-import { Works } from '@/pages/Works';
-import { About } from '@/pages/About';
-import { Contact } from '@/pages/Contact';
-import { CaseStudy } from '@/pages/CaseStudy';
+import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
+import Services from './pages/Services';
+import Blog from './pages/Blog';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import PortfolioSummary from './pages/PortfolioSummary';
+import ScrollToTop from './components/ScrollToTop';
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-}
-
-function MainLayout() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <CustomCursor />
-      <ScrollToTop />
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
-  );
-}
-
-function AnimatedRoutes() {
+function AppContent() {
   const location = useLocation();
-  
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Welcome />} />
-        <Route element={<MainLayout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/works" element={<Works />} />
-          <Route path="/works/:slug" element={<CaseStudy />} />
+    <>
+      <ScrollToTop />
+      <Navigation />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-        </Route>
-      </Routes>
-    </AnimatePresence>
+          <Route path="/portfolio" element={<PortfolioSummary />} />
+        </Routes>
+      </AnimatePresence>
+      <Footer />
+    </>
   );
 }
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-      <AnimatedRoutes />
-    </BrowserRouter>
+    <ThemeProvider>
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
-
-export default App;

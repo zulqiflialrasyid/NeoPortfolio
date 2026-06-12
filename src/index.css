@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 48 11% 94%;
+    --foreground: 0 0% 4%;
+    --card: 48 11% 94%;
+    --card-foreground: 0 0% 4%;
+    --popover: 48 11% 94%;
+    --popover-foreground: 0 0% 4%;
+    --primary: 11 42% 42%;
+    --primary-foreground: 48 11% 94%;
+    --secondary: 0 0% 4%;
+    --secondary-foreground: 48 11% 94%;
+    --muted: 48 5% 85%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 11 42% 42%;
+    --accent-foreground: 48 11% 94%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 4%;
+    --input: 0 0% 4%;
+    --ring: 11 42% 42%;
+    --radius: 0;
+    --clay: #9B4D3F;
+    --clay-dark: #7A3C30;
+    --black: #0A0A0A;
+    --white: #F5F5F0;
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 48 11% 94%;
+    --card: 0 0% 4%;
+    --card-foreground: 48 11% 94%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 48 11% 94%;
+    --primary: 11 42% 42%;
+    --primary-foreground: 48 11% 94%;
+    --secondary: 48 11% 94%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 48 5% 70%;
+    --accent: 11 42% 42%;
+    --accent-foreground: 48 11% 94%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 48 11% 94%;
+    --input: 48 11% 94%;
+    --ring: 11 42% 42%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--clay);
+    color: var(--white);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--clay);
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--clay-dark);
+  }
+}
+
+@layer components {
+  /* Heading utilities */
+  .heading-display {
+    @apply font-heading font-bold uppercase leading-[0.95] tracking-[-0.02em];
+    font-size: clamp(64px, 10vw, 120px);
+  }
+
+  .heading-1 {
+    @apply font-heading font-bold uppercase leading-[1.0] tracking-[-0.02em];
+    font-size: clamp(48px, 6vw, 80px);
+  }
+
+  .heading-2 {
+    @apply font-heading font-semibold uppercase leading-[1.1] tracking-[-0.02em];
+    font-size: clamp(36px, 4vw, 56px);
+  }
+
+  .heading-3 {
+    @apply font-heading font-semibold uppercase leading-[1.2] tracking-[-0.02em];
+    font-size: clamp(24px, 3vw, 36px);
+  }
+
+  .heading-4 {
+    @apply font-heading font-medium uppercase leading-[1.2] tracking-[-0.02em];
+    font-size: clamp(18px, 2vw, 24px);
+  }
+
+  .text-label {
+    @apply font-body font-medium uppercase leading-[1.2] tracking-[0.1em];
+    font-size: clamp(10px, 1vw, 11px);
+  }
+
+  .text-caption {
+    @apply font-body font-medium leading-[1.4] tracking-[0.02em];
+    font-size: 12px;
+  }
+
+  .text-body {
+    @apply font-body font-normal leading-[1.6] tracking-[0.01em];
+    font-size: clamp(14px, 1.5vw, 16px);
+  }
+
+  /* Brutalist border */
+  .border-brutal {
+    border: 1px solid currentColor;
+    opacity: 0.2;
+  }
+
+  /* Container */
+  .container-brutal {
+    @apply w-full mx-auto;
+    max-width: 1440px;
+    padding-left: clamp(16px, 5vw, 80px);
+    padding-right: clamp(16px, 5vw, 80px);
+  }
+
+  /* Link underline effect */
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-current transition-all duration-300 ease-out;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Grayscale hover effect */
+  .grayscale-hover {
+    @apply grayscale transition-all duration-500 ease-out;
+  }
+
+  .grayscale-hover:hover {
+    @apply grayscale-0;
+  }
+
+  /* Section spacing */
+  .section-spacing {
+    @apply py-[120px] lg:py-[200px];
+  }
+
+  /* Stagger animation delays */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+}
+
+@layer utilities {
+  .text-clay {
+    color: var(--clay);
+  }
+
+  .bg-clay {
+    background-color: var(--clay);
+  }
+
+  .bg-clay-dark {
+    background-color: var(--clay-dark);
+  }
+
+  .border-clay {
+    border-color: var(--clay);
+  }
+
+  /* Animation fill mode */
+  .animate-fill-forwards {
+    animation-fill-mode: forwards;
+  }
+
+  .animate-fill-both {
+    animation-fill-mode: both;
+  }
+}
